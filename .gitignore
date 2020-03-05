@@ -2,3 +2,4 @@
 node_modules/
 runServer.bat
 runClient.bat
+.vscode/tasks.json
