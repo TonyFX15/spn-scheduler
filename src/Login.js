@@ -15,12 +15,11 @@ class Login extends Component {
             selectedBuilding: 'Please select a building',
             buildingID:0,
             showBuildings: false,
-            showSubmit: false,
             buildingIDs: [],
             buildingNames: [],
             redirect: false
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
+        
         this.handleLogin = this.handleLogin.bind(this);
         this.handleBuildings = this.handleBuildings.bind(this);
     }
@@ -35,9 +34,7 @@ class Login extends Component {
         });
     };
 
-    handleSubmit(){
-        this.setState({redirect: true});
-    }
+    
 
     handleBuildings(selected){
         let id = 0;
@@ -100,67 +97,66 @@ class Login extends Component {
                             this.setState({
                                 buildingNames: buildingNames,
                                 buildingIDs: buildingIDs,
-                                showBuildings: true
+                                
                             });
 
                         });
+                        this.setState({redirect: true});
                 }
             });
 
     };
 
     render(){
-        //let options = this.state.building_name
-      //  let optionItems = options.map(());
         return(
             <div>
+			    
                 <div className = 'page-title'>Login</div>
                 <div className="Login">
-                    <style>
-                        {document.body.style = 'background: #43a047;'}
-                    </style>
-
+                <div class="image"></div>  
                     <Form onSubmit={this.handleLogin}>
+                    
+                        <label for= "netid">NetID: </label>
                         <Form.Group controlId="netid" bsSize="large">
+                        
                             <Form.Control
                                 autoFocus
                                 type="netid"
                                 value={this.state.netid}
                                 onChange={this.handleChange}
                             />
-                        </Form.Group>
-                        <button
-                            block
-                            bssize="large"
-                            disabled={!this.validateForm()}
-                            type="submit"
-                        >
+                            
+                           
+                    </Form.Group>
+					
+                        <button class = "button" id="submit" type="submit">
                             Login
                         </button>
+						
                     </Form>
                     {
                         this.state.showBuildings ? (
                             <Dropdown options={this.state.buildingNames} onChange={this.handleBuildings} value={this.state.selectedBuilding}/>
                         ) : null
                     }
-                    {
-                        this.state.showSubmit ? (
-                            <button onClick={this.handleSubmit}>Submit</button>
-                        ) : null
-                    }
+					
+					
                     {
                         this.state.redirect ? (
                             <Redirect to={{
                                 pathname: '/calendar',
                                 state: {
-                                    buildingID: this.state.buildingID,
+                                    buildingID: 1,
                                     userID: this.state.userid,
                                     classID: this.state.classID,
                                     email: this.state.email
                                 }}}/>
                         ) : null
                     }
+					<div className = 'page-footer'>Unauthorized use is prohibited. Usage may be subject to security testing and monitoring. Misuse is subject to criminal prosecution. No expectation of privacy except as otherwise provided by applicable privacy laws.
+					</div>
                 </div>
+                
             </div>
         );
     }
